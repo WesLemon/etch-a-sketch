@@ -16,7 +16,6 @@ function draw(event) {
     const square = event.target
     const randomColor = Math.floor(Math.random()*16777215).toString(16)
     square.style.backgroundColor = '#' + randomColor
-    console.log(randomColor)
 }
 
 function changeSize() {
@@ -24,13 +23,12 @@ function changeSize() {
     let size = 0
     while(!valid) {
         size = prompt('What size grid would you like? Maximum 100x100')
-        console.log(typeof(size))
         if(size <= 100 && size > 0) {
             valid = true
         }
 
     }
-    console.log('out')
+    console.log('Changed size')
     let containerSize = container.offsetWidth 
     while(container.firstChild) {
         container.removeChild(container.firstChild)
@@ -41,6 +39,7 @@ function changeSize() {
 }
 
 function resetGrid() {
+    console.log('Reset grid')
     while(container.firstChild) {
         container.removeChild(container.firstChild)
     }
