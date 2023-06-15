@@ -1,23 +1,50 @@
 function createGrid() {
     const container = document.querySelector('.container')
-    console.log(container)
-    for (let i = 0; i < 256; i++) {
+    for (let i = 0; i < numSquares; i++) {
         let square = document.createElement('div')
         square.classList.add('grid-section')
+        square.style.width = squareSize + 'px'
+        square.style.height = squareSize + 'px'
         container.appendChild(square)
-        console.log('Hello world')
     }
+    const square = document.querySelectorAll('.grid-section')
+    square.forEach((square) => {
+        square.addEventListener('mouseover', draw)
+    })
 }
 
 function draw(event) {
     const square = event.target
     const randomColor = Math.floor(Math.random()*16777215).toString(16)
     square.style.backgroundColor = '#' + randomColor
+    console.log(randomColor)
 }
+
+function changeSize(event) {
+    let valid = false
+    let size = 0
+    while(!valid) {
+        size = prompt('What size grid would you like? Maximum 100x100')
+        console.log(typeof(size))
+        if(size <= 100 && size > 0) {
+            valid = true
+        }
+    }
+    console.log('out')
+    const container = document.querySelector('.container')
+    let containerSize = container.offsetWidth 
+    while(container.firstChild) {
+        container.removeChild(container.firstChild)
+    }
+    squareSize = (containerSize / size) - 2 
+    numSquares = size*size
+    createGrid()
+}
+
+let squareSize = 48
+let numSquares = 256
 
 createGrid()
 
-const square = document.querySelectorAll('.grid-section')
-square.forEach((square) => {
-    square.addEventListener('mouseover', draw, false)
-})
+const button = document.querySelector('button')
+button.addEventListener('click', changeSize)
