@@ -1,5 +1,4 @@
 function createGrid() {
-    const container = document.querySelector('.container')
     for (let i = 0; i < numSquares; i++) {
         let square = document.createElement('div')
         square.classList.add('grid-section')
@@ -20,7 +19,7 @@ function draw(event) {
     console.log(randomColor)
 }
 
-function changeSize(event) {
+function changeSize() {
     let valid = false
     let size = 0
     while(!valid) {
@@ -29,9 +28,9 @@ function changeSize(event) {
         if(size <= 100 && size > 0) {
             valid = true
         }
+
     }
     console.log('out')
-    const container = document.querySelector('.container')
     let containerSize = container.offsetWidth 
     while(container.firstChild) {
         container.removeChild(container.firstChild)
@@ -41,10 +40,21 @@ function changeSize(event) {
     createGrid()
 }
 
+function resetGrid() {
+    while(container.firstChild) {
+        container.removeChild(container.firstChild)
+    }
+    createGrid()
+}
+
+const container = document.querySelector('.container')
 let squareSize = 48
 let numSquares = 256
 
 createGrid()
 
-const button = document.querySelector('button')
-button.addEventListener('click', changeSize)
+const changeButton = document.querySelector('.changeSize')
+changeButton.addEventListener('click', changeSize)
+
+const resetButton = document.querySelector('.reset')
+resetButton.addEventListener('click', resetGrid)
